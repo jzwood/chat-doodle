@@ -18,6 +18,10 @@ function setup() {
     console.log('drawing a line')
   })
 
+  socket.on('clear', ()=> {
+    background(256)
+  })
+
 }
 
 var x = 0,
@@ -28,6 +32,7 @@ var epsilon = 0.01
 function draw() {
   if(keyCode === 114){
     background(256)
+    socket.emit('clear', room)
   }
   if(touchIsDown){
     if(x > 0 && y > 0){

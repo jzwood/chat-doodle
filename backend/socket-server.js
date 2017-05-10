@@ -30,6 +30,10 @@ module.exports = {
         // nsp.to(room).volatile.emit('linePositionData', 'temporary data')
       })
 
+      socket.on('clear', function(room) {
+        socket.to(room).volatile.emit('clear')
+      })
+
       //splices socket out of client socket list
       socket.on('disconnect', function() {
         console.log('someone left')
