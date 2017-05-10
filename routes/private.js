@@ -15,7 +15,6 @@ router.post('/', function(req, res, next) {
   return res.redirect('/private/' + sha1(simplepw))
 })
 
-
 router.get('/:id([a-z0-9]{40})/readme', function(req, res, next) {
   return res.render('readme', { title: 'readme', room : 'private/' + req.params.id });
 })

@@ -1,24 +1,22 @@
 <script src="/socket.io/socket.io.js"></script>
 <!-- <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script> -->
-<div class="wrapper">
-  <div class="nav nav--black">
-    <a class="btn" href="/">cd ..</a>
-    <a href="/{{room}}/readme" class="btn">README.md</a>
-  </div>
-  <div id="wrapper__canvas" class="wrapper__canvas">
-    <div class="flags">
-      <span class="flags__flag flags--color1">0%</span>
-      <span class="flags__flag flags--color2">0%</span>
-      <span class="flags__flag flags--color3">0%</span>
-      <span class="flags__flag flags--color4">0%</span>
-    </div>
-  </div>
-  <div class="terminal">
-    <span class="terminal__dollar">$</span><input type="text" name="terminal" value="" placeholder="type S/B rule here" class="terminal__input">
-    <p class="terminal__info">E.G. 23/16, then press Enter</p>
-  </div>
-  <h1 class="warning"></h1>
-</div>
-<script src="/javascripts/lib/mainLoop.min.js"></script>
-<script src="/javascripts/lib/p5.min.js"></script>
+<!-- <script src="/javascripts/lib/mainLoop.min.js"></script> -->
+<script src="/javascripts/lib/p5.js" type="text/javascript"></script>
+<script src="/javascripts/lib/p5.dom.js" type="text/javascript"></script>
 <script src="/build/main.js"></script>
+
+<!-- <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>01_touchIsDown</title>
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <script src="libraries/p5.js" type="text/javascript"></script>
+    <script src="libraries/p5.dom.js" type="text/javascript"></script>
+    <script src="sketch.js" type="text/javascript"></script>
+
+    <style> body {padding: 0; margin: 0;} canvas {vertical-align: top;} </style>
+  </head>
+  <body>
+  </body>
+</html> -->

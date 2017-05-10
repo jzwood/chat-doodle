@@ -13,6 +13,10 @@ h1, h2, h3 {
   font-size: $large-font-weight;
 }
 
+canvas {
+  vertical-align: top;
+}
+
 a {
   text-decoration: none;
   outline: 0;
