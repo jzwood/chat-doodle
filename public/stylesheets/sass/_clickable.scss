@@ -1,15 +1,15 @@
 /* Block */
 .nav {
 
-  width: 100%;
-  padding-top: 20px;
+  padding-top: 1ch;
   display: block;
   text-align: center;
 
   @include m('fixed'){
     position: fixed;
     top: 0;
-    left: 0;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   @include m('black'){

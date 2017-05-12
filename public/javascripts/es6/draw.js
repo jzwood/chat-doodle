@@ -12,6 +12,8 @@ let p5App = new window.p5(p => {
     canvas.parent('wrapper__canvas')
     canvas.class('wrapper__canvas__p5')
 
+    document.querySelector('.nav--fixed').style.width = p.windowWidth + 'px'
+
     p.strokeWeight(10)
 
     const isPrivate = location.href.indexOf('/private')
