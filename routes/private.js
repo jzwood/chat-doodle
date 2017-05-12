@@ -20,7 +20,7 @@ router.get('/:id([a-z0-9]{40})/readme', function(req, res, next) {
 })
 
 router.get('/:id([a-z0-9]{40})', function(req, res, next) {
-  return res.render('main', { title: 'private_room', room: 'private/' + req.params.id });
+  return res.render('main', { title: 'Private Doodle', room: 'private/' + req.params.id });
 })
 
 router.get('/', function(req, res, next) {

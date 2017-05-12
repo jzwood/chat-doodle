@@ -24,10 +24,8 @@ module.exports = {
         socket.join(room)
       })
 
-      socket.on('clientDataPush', function(room, data){
-        console.log('clientDataPush', clean(socket.id), room)
+      socket.on('pushData', function(room, data){
         socket.to(room).volatile.emit('linePositionData', data)
-        // nsp.to(room).volatile.emit('linePositionData', 'temporary data')
       })
 
       socket.on('clear', function(room) {

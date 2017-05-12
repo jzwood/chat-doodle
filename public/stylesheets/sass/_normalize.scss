@@ -4,6 +4,7 @@ html {
   width: 100%;
   max-width: 100%;
   min-height: 100vh;
+  // overflow: hidden;
 }
 
 h1, h2, h3 {
@@ -15,6 +16,7 @@ h1, h2, h3 {
 
 canvas {
   vertical-align: top;
+  box-sizing: border-box;
 }
 
 a {

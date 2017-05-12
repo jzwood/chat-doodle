@@ -1,13 +1,16 @@
 /* Block */
 .nav {
+
+  width: 100%;
   padding-top: 20px;
-
-  @include e('warning'){
-    padding:0;
-  };
-
   display: block;
   text-align: center;
+
+  @include m('fixed'){
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
 
   @include m('black'){
     background-color: #000;
@@ -37,7 +40,7 @@
     padding: 1ch;
   }
   text-align: center;
-  border:1px solid black;
+  border: 1px solid #505050;
   border-radius: $subtle-radius;
   font-size: $medium-font;
   font-family: $code-font;

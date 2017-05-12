@@ -6,7 +6,7 @@ router.get('/readme', function(req, res, next) {
 })
 
 router.get('/', function(req, res, next) {
-  return res.render('main', { title: 'public_room', room: 'public' })
+  return res.render('main', { title: 'Public Doodle', room: 'public' })
 })
 
 module.exports = router;
