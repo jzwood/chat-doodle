@@ -1,10 +1,10 @@
 .wrapper {
   display: flex;
   justify-content: center;
+}
 
+.canvas-wrapper{
   @include e('canvas'){
-    @include e('p5'){
-      border: 2px solid #ECECEC;
-    }
+    border: 2px solid #ECECEC;
   }
 }
