@@ -2,7 +2,10 @@ function controller(canvas){
   const ctx = canvas.getContext('2d')
   let width = window.innerWidth, height = window.innerHeight,
     xOffset = 0, yOffset = 0,
-    epsilon = 0.01
+    epsilon = 0.01, decimalLimit = 0
+  const lineSet = new Set()
+
+  let room
 
   const drawState = {x1:0, y1:0, x2: 0, y2: 0, isDrawing: false, step(){
     this.x1 = this.x2
@@ -21,22 +24,22 @@ function controller(canvas){
     canvas.height = height
 
     console.log(canvas, width, height)
-    ctx.lineWidth = 5
+    ctx.lineWidth = 8
     ctx.lineCap = 'round'
   }
 
   function handleFingerDown(e){
     drawState.isDrawing = true
     let [x, y] = [e.touches[0].clientX, e.touches[0].clientY]
-    drawState.x1 = x - xOffset
-    drawState.y1 = y - yOffset
-    drawState.x2 = x - xOffset
-    drawState.y2 = y - yOffset
+    drawState.x1 = parseFloat((x - xOffset).toFixed(decimalLimit))
+    drawState.y1 = parseFloat((y - yOffset).toFixed(decimalLimit))
+    drawState.x2 = parseFloat((x - xOffset).toFixed(decimalLimit))
+    drawState.y2 = parseFloat((y - yOffset).toFixed(decimalLimit))
   }
 
   function handleFingerDrag(e){
-      drawState.x2 = e.touches[0].clientX - xOffset
-      drawState.y2 = e.touches[0].clientY - yOffset
+      drawState.x2 = parseFloat((e.touches[0].clientX - xOffset).toFixed(decimalLimit))
+      drawState.y2 = parseFloat((e.touches[0].clientY - yOffset).toFixed(decimalLimit))
   }
 
   function handleFingerUp(e){
@@ -79,33 +82,20 @@ function controller(canvas){
       console.log('clearBackground')
       ctx.clearRect(0, 0, width, height)
     },
+    setRoom(r){
+      room = r
+    },
     draw(){
       if(drawState.isDrawing){
-        const ds = drawState
-        console.log(ds.x1, ds.y1, ds.x2, ds.y2)
-        line(ds.x1, ds.y1, ds.x2, ds.y2)
-        ds.step()
+        const ds = drawState,
+          setKey = [ds.x1, ds.y1, ds.x2, ds.y2].join(',')
+        if(!lineSet.has(setKey)){
+          socket.emit('pushData', room, {x1:ds.x1, y1:ds.y1, x2:ds.x2, y2:ds.y2})
+          line(ds.x1, ds.y1, ds.x2, ds.y2)
+          lineSet.add(setKey)
+          ds.step()
+        }
       }
     }
   }
 }
-/*
-function draw(){
-  if(p.keyCode === 114){
-    p.background(bgcolor)
-    socket.emit('clear', room)
-  }
-  if(p.touchIsDown || p.mouseIsPressed){
-    const [x2, y2] = p.touchIsDown ? [p.touchX, p.touchY] : [p.mouseX, p.mouseY]
-    if(x > 0 && y > 0){
-      p.line(x, y, x2, y2)
-      socket.emit('pushData', room, {x, y, x2, y2})
-    }
-    x = x2
-    y = y2
-  }else{
-    x = 0
-    y = 0
-  }
-}
-*/

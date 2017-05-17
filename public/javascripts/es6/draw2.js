@@ -15,10 +15,12 @@ function start(){
     socket = isPrivate > 0 ? io('/private') : io('/public')
     let room = window.location.pathname.slice(-40)
 
+    ctrl.setRoom(room)
+
     socket.emit('init', room)
 
     socket.on('linePositionData', data => {
-      ctrl.line(data.x, data.y, data.x2, data.y2)
+      ctrl.line(data.x1, data.y1, data.x2, data.y2)
     })
 
     socket.on('clear', () => {
