@@ -11,8 +11,7 @@ function start(){
     const ctrl = controller(canvas)
     ctrl.setBackground('#ffffff')
 
-    const isPrivate = location.href.indexOf('/private')
-    socket = isPrivate > 0 ? io('/private') : io('/public')
+    socket = io('/')
     let room = window.location.pathname.slice(-40)
 
     ctrl.setRoom(room)
