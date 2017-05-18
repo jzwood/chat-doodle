@@ -6,6 +6,7 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     rename = require('gulp-rename'),
     babel = require('gulp-babel'),
+    sourcemaps = require('gulp-sourcemaps'),
     uglify = require('gulp-uglify'),
     sass = require('gulp-sass'),
     cleanCSS = require('gulp-clean-css'),
@@ -46,11 +47,13 @@ gulp.task('sass', function () {
 // merges all js into one file & uglifies
 gulp.task('es6', function() {
   return gulp.src(path.es6)
-    .pipe(concat('main.js'))
+    .pipe(sourcemaps.init())
     .pipe(babel({
       presets: ['es2015']
     }))
+    .pipe(concat('main.js'))
     .pipe(uglify())
+    .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(dest.build))
 })
 

@@ -3,7 +3,8 @@
   justify-content: center;
 }
 
-
-.wrapper__canvas__p5 {
-  border: 2px dashed #DADADA;
+.canvas-wrapper{
+  @include e('canvas'){
+    border: 2px solid #ECECEC;
+  }
 }

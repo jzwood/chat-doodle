@@ -15,7 +15,6 @@
     "express": "~4.13.4",
     "hbs": "~4.0.0",
     "msgpack-lite": "^0.1.26",
-    "sha1": "^1.1.1",
     "socket.io": "^1.4.8"
   },
   "devDependencies": {
