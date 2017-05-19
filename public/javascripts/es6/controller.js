@@ -28,21 +28,26 @@ function controller(canvas){
     ctx.lineCap = 'round'
   }
 
-  function handleFingerDown(e){
+  function eventToXY(event){
+    return event.touches ? [event.touches[0].clientX, event.touches[0].clientY] : [event.clientX, event.clientY]
+  }
+
+  function handleDrawStart(e){
     drawState.isDrawing = true
-    let [x, y] = [e.touches[0].clientX, e.touches[0].clientY]
+    const [x, y] = eventToXY(e)
     drawState.x1 = parseFloat((x - xOffset).toFixed(decimalLimit))
     drawState.y1 = parseFloat((y - yOffset).toFixed(decimalLimit))
     drawState.x2 = parseFloat((x - xOffset).toFixed(decimalLimit))
     drawState.y2 = parseFloat((y - yOffset).toFixed(decimalLimit))
   }
 
-  function handleFingerDrag(e){
-      drawState.x2 = parseFloat((e.touches[0].clientX - xOffset).toFixed(decimalLimit))
-      drawState.y2 = parseFloat((e.touches[0].clientY - yOffset).toFixed(decimalLimit))
+  function handleDrawMove(e){
+    const [x, y] = eventToXY(e)
+    drawState.x2 = parseFloat((x - xOffset).toFixed(decimalLimit))
+    drawState.y2 = parseFloat((y - yOffset).toFixed(decimalLimit))
   }
 
-  function handleFingerUp(e){
+  function handleDrawStop(e){
     drawState.isDrawing = false
   }
 
@@ -54,9 +59,12 @@ function controller(canvas){
   }
 
   function registerTouchEvents(){
-    document.addEventListener('touchstart', handleFingerDown)
-    document.addEventListener('touchmove', handleFingerDrag)
-    document.addEventListener('touchend', handleFingerUp)
+    document.addEventListener('touchstart', handleDrawStart)
+    document.addEventListener('touchmove', handleDrawMove)
+    document.addEventListener('touchend', handleDrawStop)
+    document.addEventListener('mousedown', handleDrawStart)
+    document.addEventListener('mousemove', handleDrawMove)
+    document.addEventListener('mouseup', handleDrawStop)
     window.addEventListener('resize', debounce(handleResize, 100))
   }
 
