@@ -1,7 +1,6 @@
 function controller(canvas){
   const ctx = canvas.getContext('2d')
   let width = window.innerWidth, height = window.innerHeight,
-    xOffset = 0, yOffset = 0,
     epsilon = 0.01, decimalLimit = 0
   const lineSet = new Set()
 
@@ -22,8 +21,6 @@ function controller(canvas){
   function initCanvas(){
     canvas.width = width
     canvas.height = height
-
-    console.log(canvas, width, height)
     ctx.lineWidth = 8
     ctx.lineCap = 'round'
   }
@@ -35,16 +32,16 @@ function controller(canvas){
   function handleDrawStart(e){
     drawState.isDrawing = true
     const [x, y] = eventToXY(e)
-    drawState.x1 = parseFloat((x - xOffset).toFixed(decimalLimit))
-    drawState.y1 = parseFloat((y - yOffset).toFixed(decimalLimit))
-    drawState.x2 = parseFloat((x - xOffset).toFixed(decimalLimit))
-    drawState.y2 = parseFloat((y - yOffset).toFixed(decimalLimit))
+    drawState.x1 = parseFloat((x).toFixed(decimalLimit))
+    drawState.y1 = parseFloat((y).toFixed(decimalLimit))
+    drawState.x2 = parseFloat((x).toFixed(decimalLimit))
+    drawState.y2 = parseFloat((y).toFixed(decimalLimit))
   }
 
   function handleDrawMove(e){
     const [x, y] = eventToXY(e)
-    drawState.x2 = parseFloat((x - xOffset).toFixed(decimalLimit))
-    drawState.y2 = parseFloat((y - yOffset).toFixed(decimalLimit))
+    drawState.x2 = parseFloat((x).toFixed(decimalLimit))
+    drawState.y2 = parseFloat((y).toFixed(decimalLimit))
   }
 
   function handleDrawStop(e){
@@ -54,8 +51,11 @@ function controller(canvas){
   function handleResize(e){
     width = window.innerWidth
     height = window.innerHeight
-    xOffset = (width - canvas.width) * 0.5
-    yOffset = (height - canvas.height) * 0
+    initCanvas()
+    resetNav()
+    lineSet.forEach(points => {
+      line(...points.split(',').map(i => parseInt(i)))
+    })
   }
 
   function registerTouchEvents(){

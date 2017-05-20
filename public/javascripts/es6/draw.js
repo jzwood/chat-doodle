@@ -5,11 +5,19 @@ document.addEventListener("DOMContentLoaded", e => {
   start()
 })
 
+function resetNav(){
+  const nav = document.querySelector('.nav')
+  // nav.style.width = canvas.width + 'px'
+  nav.style.height = ~~(window.innerWidth / nav.childElementCount) + 'px'
+}
+
 function start(){
   const canvas = document.querySelector('.canvas-wrapper__canvas')
   if (canvas.getContext) {
     const ctrl = controller(canvas)
     ctrl.setBackground('#ffffff')
+
+    resetNav()
 
     socket = io('/')
     let room = window.location.pathname.slice(-40)

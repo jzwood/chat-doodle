@@ -1,52 +1,64 @@
 /* Block */
 .nav {
-
-  padding-top: 1ch;
-  display: block;
-  text-align: center;
-
-  @include m('fixed'){
-    position: fixed;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-  }
-
-  @include m('black'){
-    background-color: #000;
-  }
-}
-
-.form{
-
-  @include m('input'){
-    outline-color: #000;
-  };
-
-  opacity: 1;
-  @include m('hide'){
-    opacity: 0;
-  }
+  display: flex;
+  position: absolute;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  width: 100%;
+  transition: height 1s;
 }
 
 .btn {
   display: inline-block;
-  background-color: #ffffff;
-  color: black;
-  margin: 5px;
-  padding: 5px;
-  @include tablet{
-    margin: 1ch;
-    padding: 1ch;
-  }
-  text-align: center;
-  border: 1px solid #505050;
-  border-radius: $subtle-radius;
+  flex-grow: 1;
   font-size: $medium-font;
   font-family: $code-font;
 
-  &:hover:enabled{
+  @include e('color'){
+
+    @include m('red'){
+      background-color: red;
+    }
+    @include m('purple'){
+      background-color: purple;
+    }
+    @include m('blue'){
+      background-color: blue;
+    }
+    @include m('green'){
+      background-color: green;
+    }
+    @include m('yellow'){
+      background-color: yellow;
+    }
+    @include m('orange'){
+      background-color: orange;
+    }
+    @include m('white'){
+      background-color: white;
+    }
+    @include m('black'){
+      background-color: black;
+    }
+  }
+
+  @include e('refresh'){
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    background-image: url('../assets/refresh.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    transform: scale(0.75);
+  }
+
+  @include e('pen-size'){
+    background-color: white;
+  }
+
+  &:hover{
     cursor: pointer;
   }
 
