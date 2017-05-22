@@ -58,6 +58,11 @@ function controller(canvas){
     })
   }
 
+  function clickRefresh(){
+    clearBackground()
+    socket.emit('clear', room, 0)
+  }
+
   function registerTouchEvents(){
     document.addEventListener('touchstart', handleDrawStart)
     document.addEventListener('touchmove', handleDrawMove)
@@ -66,6 +71,10 @@ function controller(canvas){
     document.addEventListener('mousemove', handleDrawMove)
     document.addEventListener('mouseup', handleDrawStop)
     window.addEventListener('resize', debounce(handleResize, 100))
+
+    const refresh = document.querySelector('.btn__refresh')
+    refresh.addEventListener('touchend', clickRefresh)
+    refresh.addEventListener('mouseup', clickRefresh)
   }
 
   function line(x1, y1, x2, y2){
@@ -77,21 +86,22 @@ function controller(canvas){
       ctx.stroke()
   }
 
+  function clearBackground(){
+    ctx.clearRect(0, 0, width, height)
+    lineSet.clear()
+  }
+
   return {
     line,
+    clearBackground,
+    setRoom(r){
+      room = r
+    },
     setBackground(color='#ffffff'){
-      console.log('setBackground')
       bgcolor = color
       ctx.fillStyle = bgcolor
       ctx.fillRect(0, 0, width, height)
       ctx.fillStyle = color
-    },
-    clearBackground(){
-      console.log('clearBackground')
-      ctx.clearRect(0, 0, width, height)
-    },
-    setRoom(r){
-      room = r
     },
     draw(){
       if(drawState.isDrawing){
