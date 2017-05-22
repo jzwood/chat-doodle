@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", e => {
 function resetNav(){
   const nav = document.querySelector('.nav')
   // nav.style.width = canvas.width + 'px'
-  nav.style.height = ~~(window.innerWidth / nav.childElementCount) + 'px'
+  nav.style.height = Math.min(50, ~~(window.innerWidth / nav.childElementCount)) + 'px'
 }
 
 function start(){
@@ -31,7 +31,7 @@ function start(){
     })
 
     socket.on('clear', () => {
-      ctrl.clearBackground(cx2, canvas)
+      ctrl.clearBackground()
     })
 
     MainLoop.setMaxAllowedFPS([60]).setDraw(ctrl.draw).start()
