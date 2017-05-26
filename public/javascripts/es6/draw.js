@@ -30,9 +30,7 @@ function start(){
       ctrl.line(data.x1, data.y1, data.x2, data.y2)
     })
 
-    socket.on('clear', () => {
-      ctrl.clearBackground()
-    })
+    socket.on('clear', ctrl.clearBackground)
 
     MainLoop.setMaxAllowedFPS([60]).setDraw(ctrl.draw).start()
   }
