@@ -2,7 +2,7 @@ function controller(canvas){
   const ctx = canvas.getContext('2d')
   let width = window.innerWidth, height = window.innerHeight,
     epsilon = 0.01, decimalLimit = 0
-  const lineMap = []
+  let lineMap = []
 
   let room
 
@@ -52,7 +52,6 @@ function controller(canvas){
     width = window.innerWidth
     height = window.innerHeight
     initCanvas()
-    resetNav()
     lineMap.forEach(points => {
       line(...points.split(',').map(i => parseInt(i)))
     })
@@ -61,6 +60,14 @@ function controller(canvas){
   function clickRefresh(){
     clearBackground()
     socket.emit('clear', room)
+  }
+
+  function clickUndo(){
+    ctx.clearRect(0, 0, width, height)
+    lineMap = lineMap.slice(0,-2).map(points => {
+      line(...points.split(',').map(i => parseInt(i)))
+      return points
+    })
   }
 
   function registerTouchEvents(){
@@ -75,6 +82,10 @@ function controller(canvas){
     const refresh = document.querySelector('.btn__refresh')
     refresh.addEventListener('touchend', clickRefresh)
     refresh.addEventListener('mouseup', clickRefresh)
+
+    const undo = document.querySelector('.btn__erase')
+    undo.addEventListener('touchend', clickUndo)
+    undo.addEventListener('mouseup', clickUndo)
   }
 
   function line(x1, y1, x2, y2){
@@ -107,7 +118,7 @@ function controller(canvas){
       if(drawState.isDrawing){
         const ds = drawState,
           setKey = [ds.x1, ds.y1, ds.x2, ds.y2].join(',')
-        if(lineMap[-1] !== setKey){
+        if(lineMap.slice(-1)[0] !== setKey){
           socket.emit('pushData', room, {x1:ds.x1, y1:ds.y1, x2:ds.x2, y2:ds.y2})
           line(ds.x1, ds.y1, ds.x2, ds.y2)
           lineMap.push(setKey)
