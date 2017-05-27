@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", e => {
   start()
 })
 
+
 function start(){
   const canvas = document.querySelector('.canvas-wrapper__canvas')
   if (canvas.getContext) {
@@ -22,9 +23,7 @@ function start(){
       ctrl.line(data.x1, data.y1, data.x2, data.y2)
     })
 
-    socket.on('clear', () => {
-      ctrl.clearBackground(cx2, canvas)
-    })
+    socket.on('clear', ctrl.clearBackground)
 
     MainLoop.setMaxAllowedFPS([60]).setDraw(ctrl.draw).start()
   }
