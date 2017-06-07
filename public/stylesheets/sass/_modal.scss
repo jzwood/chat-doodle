@@ -1,0 +1,19 @@
+.nanoModalBtnPrimary {
+  outline: none;
+  flex-grow: 1;
+}
+
+.nanoModalButtons{
+  width: 100%;
+  display: flex !important;
+  flex-wrap: none;
+  align-items: center;
+}
+
+.nanoModalBtn{
+}
+
+.nanoModalContent{
+  font-family: $code-font;
+  line-height: 1.5;
+}

@@ -2,7 +2,9 @@ function controller(canvas){
   const ctx = canvas.getContext('2d')
   let width = window.innerWidth, height = window.innerHeight,
     epsilon = 0.01, decimalLimit = 0
-  let lineMap = []
+  let lineMap = [], modal = getModal()
+
+  window.modal = modal
 
   let room
 
@@ -70,6 +72,11 @@ function controller(canvas){
     })
   }
 
+  function clickShare(e){
+    e.preventDefault()
+    modal.show()
+  }
+
   function registerTouchEvents(){
     document.addEventListener('touchstart', handleDrawStart)
     document.addEventListener('touchmove', handleDrawMove)
@@ -86,6 +93,10 @@ function controller(canvas){
     const undo = document.querySelector('.btn__erase')
     undo.addEventListener('touchend', clickUndo)
     undo.addEventListener('mouseup', clickUndo)
+
+    const share = document.querySelector('.btn__share')
+    share.addEventListener('touchend', clickShare)
+    share.addEventListener('mouseup', clickShare)
   }
 
   function line(x1, y1, x2, y2){
