@@ -2,9 +2,28 @@ function controller(canvas){
   const ctx = canvas.getContext('2d')
   let width = window.innerWidth, height = window.innerHeight,
     epsilon = 0.01, decimalLimit = 0
-  let lineMap = [], modal = getModal()
+  let lineMap = [], copyModal = getShareModal(), aboutModal = getAboutModal()
 
-  window.modal = modal
+  let disableDrawing = false
+  copyModal.onShow(() => {
+    disableDrawing = true
+  })
+
+  aboutModal.onShow(() => {
+    disableDrawing = true
+  })
+
+  copyModal.onHide(() => {
+    window.setTimeout(() => {
+      disableDrawing = false
+    }, 200)
+  })
+
+  aboutModal.onHide(() => {
+    window.setTimeout(() => {
+      disableDrawing = false
+    }, 200)
+  })
 
   let room
 
@@ -41,6 +60,7 @@ function controller(canvas){
   }
 
   function handleDrawMove(e){
+    e.preventDefault()
     const [x, y] = eventToXY(e)
     drawState.x2 = parseFloat((x).toFixed(decimalLimit))
     drawState.y2 = parseFloat((y).toFixed(decimalLimit))
@@ -72,9 +92,12 @@ function controller(canvas){
     })
   }
 
-  function clickShare(e){
-    e.preventDefault()
-    modal.show()
+  function clickShare(){
+    copyModal.show()
+  }
+
+  function clickAbout(){
+    aboutModal.show()
   }
 
   function registerTouchEvents(){
@@ -97,6 +120,10 @@ function controller(canvas){
     const share = document.querySelector('.btn__share')
     share.addEventListener('touchend', clickShare)
     share.addEventListener('mouseup', clickShare)
+
+    const about = document.querySelector('.btn__about')
+    about.addEventListener('touchend', clickAbout)
+    about.addEventListener('mouseup', clickAbout)
   }
 
   function line(x1, y1, x2, y2){
@@ -104,7 +131,6 @@ function controller(canvas){
       ctx.beginPath()
       ctx.moveTo(x1, y1)
       ctx.lineTo(x2, y2)
-      ctx.closePath()
       ctx.stroke()
   }
 
@@ -126,7 +152,7 @@ function controller(canvas){
       ctx.fillStyle = color
     },
     draw(){
-      if(drawState.isDrawing){
+      if(drawState.isDrawing && !disableDrawing){
         const ds = drawState,
           setKey = [ds.x1, ds.y1, ds.x2, ds.y2].join(',')
         if(lineMap.slice(-1)[0] !== setKey){
