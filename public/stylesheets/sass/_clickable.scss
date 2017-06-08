@@ -7,6 +7,7 @@
   background-color: rgba(256,256,256,0.9);
   border-left: 2px solid rgba(240,240,240,0.75);
   border-bottom: 2px solid rgba(240,240,240,0.75);
+  min-height: 250px;
 
   padding-bottom: 20px;
   backdrop-filter: blur(5px);
@@ -34,16 +35,8 @@
   background-position-y: 7px;
   border-radius: 5px;
 
-  @include e('draw'){
-    background-image: url('../assets/draw_cc.png');
-  }
-
   @include e('erase'){
     background-image: url('../assets/erase_cc.png');
-  }
-
-  @include e('undo'){
-    background-image: url('../assets/undo_cc.png');
   }
 
   @include e('share'){
@@ -52,6 +45,12 @@
 
   @include e('refresh'){
     background-image: url('../assets/refresh_cc.png');
+  }
+
+  @include e('about'){
+    position: absolute;
+    bottom: 25px;
+    padding-top: 25px;
   }
 
   @include e('active'){
