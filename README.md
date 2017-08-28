@@ -1,8 +1,6 @@
-**DOODLE CHAT**<br>
-Doodle in realtime with friends and enemies.
+### DOODLE CHAT
 
-**AUTHOR**<br>
-Jake Wood
+Make collaborative doodles online with friends.
 
 **LICENCE**<br>
 This project is licensed under the terms of the MIT license.
